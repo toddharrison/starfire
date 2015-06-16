@@ -1,0 +1,215 @@
+{
+	"stars": [
+		{
+			"name": "Star",
+			"spectralClass": [ "O", "B", "A", "F", "G", "K", "M" ],
+			"luminosity": [ "O", "Ia", "Ib", "II", "III", "IV", "V" ]
+		},
+		{
+			"name": "Red Giant",
+			"spectralClass": [ "K", "M" ],
+			"luminosity": [ "O", "Ia", "Ib", "II", "III" ]
+		},
+		{
+			"name": "Blue Giant",
+			"spectralClass": [ "O", "B", "A" ],
+			"luminosity": [ "II", "III" ]
+		},
+		{
+			"name": "Neutron Star"
+		},
+		{
+			"name": "Quark Star"
+		},
+		{
+			"name": "White Dwarf"
+			"spectralClass": [ "O", "B", "A", "F", "G", "K" ],
+			"luminosity": [ "VII" ]
+		},
+		{
+			"name": "Black Dwarf"
+		}
+	],
+	
+	"types": [
+		{
+			"name": "Nexus"
+		},
+		{
+			"name": "Nebula",
+			"types": [
+				{
+					"name": "Dark Nebula"
+				},
+				{
+					"name": "Emission Nebula"
+				},
+				{
+					"name": "Protostar Nebula"
+				},
+				{
+					"name": "Planetary Nebula"
+				}
+			]
+		},
+		{
+			"name": "Single Star"
+		},
+		{
+			"name": "Binary Star"
+		},
+		{
+			"name": "Ternary Star"
+		},
+		{
+			"name": "Black Hole"
+		}
+	]
+	
+	
+	
+	
+	"weather": [
+		"meteoroid showers", "cosmic dust", "micrometeoroid weathering",
+		"solar wind", "electron storm", "proton storm", "neutron storm",
+		"electromagnetic radiation", "gravitational radiation"
+	],
+	
+	"event": [
+		"solar pulse", "solar burst", "solar flare", "coronal mass ejection", "nova", "supernova",
+		"thermal pulse"
+	],
+	
+	"lifecycle": [
+		"ism",
+		"dark nebula",
+		"emission nebula",
+		"protostar nebula",
+		"main-sequence star",
+		"sub-giant star",
+		"red giant star",
+		"planetary nebula",
+		"white dwarf",
+		"black dwarf"
+	]
+	
+	[
+		"interstellar medium (ism)",
+		"molecular cloud",
+		"dark nebula",
+		"emission nebula",
+		"protostar nebula",
+		"main-sequence star",
+		{
+			"low-mass": [ "white dwarf", "black dwarf" ],
+			"med-low-mass": [ "red sub-giant", "white dwarf", "black dwarf" ],
+			"med-mass": [ "red giant", "planetary nebula", "white dwarf", "black dwarf" ],
+			"med-high-mass": [ "red super-giant", "supernova", 
+				{
+					"low-mass": "neutron star",
+					"high-mass": "quark star"
+				} ],
+			"high-mass": [ "red hyper-giant", "supernova",
+				{
+					"low-mass": "black hole",
+					"high-mass": null
+				} ]
+		}
+	]
+	
+	{
+		"low-mass": [ "ism", "dark nebula", "emission nebula", "protostar nebula", "main-sequence star", "white dwarf", "black dwarf" ],
+		"med-low-mass": [ "ism", "dark nebula", "emission nebula", "protostar nebula", "main-sequence star", "red sub-giant", "white dwarf", "black dwarf" ],
+		"med-mass": [ "ism", "dark nebula", "emission nebula", "protostar nebula", "main-sequence star", "red giant", "planetary nebula", "white dwarf", "black dwarf" ],
+		"med-high-mass": [ "ism", "dark nebula", "emission nebula", "protostar nebula", "main-sequence star", "red super-giant", "supernova", "neutron star" ],
+		"high-mass": [ "ism", "dark nebula", "emission nebula", "protostar nebula", "main-sequence star", "red hyper-giant", "supernova", "black hole" ]
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	"types": [
+		{
+			"name": "Nexus",
+			"weight": 8
+		},
+		{
+			"name": "Nebula",
+			"weight": 3
+			"weather": ["cosmic dust"],
+			"types": [
+				{
+					"name": "Dark Nebula"
+					"weather": ["thermal"]
+				},
+				{
+					"name": "Emission Nebula",
+					"weather": ["high thermal", "ionizing gas"]
+				},
+				{
+					"name": "Protostar Nebula",
+					"weather": ["high thermal", "ionizing gas", "strong solar wind"]
+				},
+				{
+					"name": "Planetary Nebula",
+					"weather": ["high thermal", "ionizing gas", "strong solar wind"]
+				}
+			]
+		},
+		{
+			"name": "Single Star",
+			"weight": 55,
+			"weather": ["solar wind"]
+		},
+		{
+			"name": "Binary Star",
+			"weight": 20,
+			"weather": ["solar wind"]
+		},
+		{
+			"name": "Ternary Star",
+			"weight": 10,
+			"weather": ["solar wind"]
+		},
+		{
+			"name": "Neutron Star"
+		},
+		{
+			"name": "Black Hole",
+			"weather": ["gravitational waves", "high thermal"]
+		},
+		{
+			"name": "Exotic",
+			"types": [
+				{
+					"name": "Black Dwarf"
+				},
+				{
+					"name": "Quark Star"
+				},
+				{
+					"name": "Hypergiant Star"
+				},
+				{
+					"name": "Pulsar"
+				},
+				{
+					"name": "X-Ray Binary"
+				},
+				{
+					"name": "Cepheid Variable"
+				},
+				{
+					"name": "Variable Star"
+				},
+				{
+					"name": "Wolf-Rayet Star"
+				}
+			]
+		}
+	]
+}
