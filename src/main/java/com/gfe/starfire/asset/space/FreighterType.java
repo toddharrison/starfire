@@ -4,6 +4,7 @@ import com.gfe.starfire.component.IContainerType;
 
 public enum FreighterType implements IContainerType {
 	// @formatter:off
+	FT1("Freighter 1", 12, 2, 6),
 	FT2("Freighter 2", 16, 2, 6);
 	// @formatter:on
 	
@@ -22,6 +23,11 @@ public enum FreighterType implements IContainerType {
 	@Override
 	public String getName() {
 		return name;
+	}
+	
+	@Override
+	public String getCode() {
+		return name();
 	}
 	
 	@Override

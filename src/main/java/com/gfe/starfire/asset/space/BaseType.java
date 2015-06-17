@@ -22,6 +22,11 @@ public enum BaseType implements IContainerType {
 	}
 	
 	@Override
+	public String getCode() {
+		return name();
+	}
+	
+	@Override
 	public int getSize() {
 		return size;
 	}

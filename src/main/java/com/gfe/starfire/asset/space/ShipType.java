@@ -4,7 +4,7 @@ import com.gfe.starfire.component.IContainerType;
 
 public enum ShipType implements IContainerType {
 	// @formatter:off
-	ES("Escort", 0, 0, 0),
+	ES("Escort", 12, 2, 6),
 	CT("Corvette", 16, 2, 6),
 	FG("Frigate", 0, 0, 0),
 	DD("Destroyer", 30, 3, 5),
@@ -30,6 +30,11 @@ public enum ShipType implements IContainerType {
 	@Override
 	public String getName() {
 		return name;
+	}
+	
+	@Override
+	public String getCode() {
+		return name();
 	}
 	
 	@Override

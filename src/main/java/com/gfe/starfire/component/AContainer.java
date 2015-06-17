@@ -4,13 +4,17 @@ import java.util.BitSet;
 
 import com.gfe.starfire.combat.Damage;
 
-public abstract class AContainer<T extends IContainerType> {
-	private final Template<T> template;
+public abstract class AContainer<T extends ATemplate<? extends IContainerType>> {
+	private final T template;
 	private final BitSet destroyed;
 	
-	public AContainer(final Template<T> template) {
+	public AContainer(final T template) {
 		this.template = template;
 		destroyed = new BitSet();
+	}
+	
+	public T getTemplate() {
+		return template;
 	}
 	
 	public boolean isDestroyed(final int componentIndex) {
@@ -32,5 +36,10 @@ public abstract class AContainer<T extends IContainerType> {
 			}
 		}
 		return applied;
+	}
+	
+	@Override
+	public String toString() {
+		return template.toString(destroyed);
 	}
 }
