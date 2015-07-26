@@ -1,5 +1,7 @@
 package com.gfe.starfire.model;
 
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -30,6 +32,17 @@ public class SystemRegistry {
     private static Chooser<SpectralClass> redDwarfSpectralClassChooser;
     private static Chooser<SpectralClass> whiteDwarfSpectralClassChooser;
     private static Chooser<Luminosity> giantLuminosityChooser;
+
+    private static Comparator<Star> starSorter = (star1, star2) -> {
+        int comparison = star1.getLuminosity().ordinal() - star2.getLuminosity().ordinal();
+        if (comparison == 0) {
+            comparison = star1.getSpectralClass().ordinal() - star2.getSpectralClass().ordinal();
+            if (comparison == 0) {
+                comparison = star1.getTemperature() - star2.getTemperature();
+            }
+        }
+        return comparison;
+    };
 
     public static void main(final String[] args) {
         final SystemRegistry gen = new SystemRegistry(0);
@@ -90,10 +103,12 @@ public class SystemRegistry {
                 new Option<SpectralClass>(SpectralClass.A, 6),
                 new Option<SpectralClass>(SpectralClass.F, 10));
 
-        giantLuminosityChooser = new Chooser<Luminosity>(new Option<Luminosity>(Luminosity.Ia, 1),
-                new Option<Luminosity>(Luminosity.Ib, 1), new Option<Luminosity>(Luminosity.II, 1),
-                new Option<Luminosity>(Luminosity.III, 1),
-                new Option<Luminosity>(Luminosity.IV, 1));
+        giantLuminosityChooser = new Chooser<Luminosity>(new Option<Luminosity>(Luminosity.O, 1),
+                new Option<Luminosity>(Luminosity.Ia, 10),
+                new Option<Luminosity>(Luminosity.Ib, 10),
+                new Option<Luminosity>(Luminosity.II, 10),
+                new Option<Luminosity>(Luminosity.III, 10),
+                new Option<Luminosity>(Luminosity.IV, 10));
     }
 
     public ASystem getSystem(final int systemId) {
@@ -115,24 +130,27 @@ public class SystemRegistry {
     }
 
     private static MultiStarSystem generateBinarySystem(final Random random) {
-        final Star star1 = starChooser.choose(random).generate(random);
-        final Star star2 = starChooser.choose(random).generate(random);
-        return new MultiStarSystem(star1, star2);
+        final Star[] stars = new Star[] { starChooser.choose(random).generate(random),
+                starChooser.choose(random).generate(random) };
+        Arrays.sort(stars, starSorter);
+        return new MultiStarSystem(stars[0], stars[1]);
     }
 
     private static MultiStarSystem generateTrinarySystem(final Random random) {
-        final Star star1 = starChooser.choose(random).generate(random);
-        final Star star2 = starChooser.choose(random).generate(random);
-        final Star star3 = starChooser.choose(random).generate(random);
-        return new MultiStarSystem(star1, star2, star3);
+        final Star[] stars = new Star[] { starChooser.choose(random).generate(random),
+                starChooser.choose(random).generate(random),
+                starChooser.choose(random).generate(random) };
+        Arrays.sort(stars, starSorter);
+        return new MultiStarSystem(stars[0], stars[1], stars[2]);
     }
 
     private static MultiStarSystem generateQuaternarySystem(final Random random) {
-        final Star star1 = starChooser.choose(random).generate(random);
-        final Star star2 = starChooser.choose(random).generate(random);
-        final Star star3 = starChooser.choose(random).generate(random);
-        final Star star4 = starChooser.choose(random).generate(random);
-        return new MultiStarSystem(star1, star2, star3, star4);
+        final Star[] stars = new Star[] { starChooser.choose(random).generate(random),
+                starChooser.choose(random).generate(random),
+                starChooser.choose(random).generate(random),
+                starChooser.choose(random).generate(random) };
+        Arrays.sort(stars, starSorter);
+        return new MultiStarSystem(stars[0], stars[1], stars[2], stars[3]);
     }
 
     private static NexusSystem generateNexusSystem(final Random random) {

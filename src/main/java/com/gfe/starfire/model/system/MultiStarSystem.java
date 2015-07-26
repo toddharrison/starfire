@@ -1,18 +1,17 @@
 package com.gfe.starfire.model.system;
 
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 import com.gfe.starfire.model.system.feature.Star;
 
 public class MultiStarSystem extends StarSystem {
-    private final Set<Star> companionStars;
+    private final List<Star> companionStars;
     // public Set<StarSystem> companionSystems = new HashSet<>();
 
     public MultiStarSystem(final Star star, final Star... companions) {
         super(star);
-        companionStars = new HashSet<>(Arrays.asList(companions));
+        companionStars = Arrays.asList(companions);
     }
 
     @Override
