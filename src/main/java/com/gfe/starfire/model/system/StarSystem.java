@@ -7,6 +7,7 @@ public class StarSystem extends ASystem {
 
     public StarSystem(final Star star) {
         this.star = star;
+        this.star.system = this;
     }
 
     @Override

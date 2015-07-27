@@ -1,23 +1,33 @@
 package com.gfe.starfire.model.system.feature;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.gfe.starfire.model.system.ASystem;
 
 public class Star extends AFeature {
     public ASystem system;
-    public Set<Planet> planets = new HashSet<>();
 
+    private final List<Planet> planets;
     private final SpectralClass spectralClass;
     private final int temperature;
     private final Luminosity luminosity;
 
     public Star(final SpectralClass spectralClass, final int temperature,
             final Luminosity luminosity) {
+        this(spectralClass, temperature, luminosity, new ArrayList<>());
+    }
+
+    public Star(final SpectralClass spectralClass, final int temperature,
+            final Luminosity luminosity, final List<Planet> planets) {
         this.spectralClass = spectralClass;
         this.temperature = temperature;
         this.luminosity = luminosity;
+
+        this.planets = planets;
+        for (final Planet planet : this.planets) {
+            planet.setStar(this);
+        }
     }
 
     public SpectralClass getSpectralClass() {
@@ -36,7 +46,14 @@ public class Star extends AFeature {
     public String toString() {
         // return spectralClass.getColor() + " " + luminosity.getName() + " (" + spectralClass
         // + temperature + luminosity + ")";
-        return "" + spectralClass + temperature + luminosity;
+        final StringBuffer sb = new StringBuffer();
+        sb.append(spectralClass);
+        sb.append(temperature);
+        sb.append(luminosity);
+        sb.append(" ");
+        sb.append(planets);
+
+        return sb.toString();
     }
 
     public enum SpectralClass {

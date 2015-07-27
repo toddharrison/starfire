@@ -1,8 +1,10 @@
 package com.gfe.starfire.model;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -14,6 +16,7 @@ import com.gfe.starfire.model.system.NexusSystem;
 import com.gfe.starfire.model.system.PlanetaryNebulaSystem;
 import com.gfe.starfire.model.system.ProtostarSystem;
 import com.gfe.starfire.model.system.StarSystem;
+import com.gfe.starfire.model.system.feature.Planet;
 import com.gfe.starfire.model.system.feature.Star;
 import com.gfe.starfire.model.system.feature.Star.Luminosity;
 import com.gfe.starfire.model.system.feature.Star.SpectralClass;
@@ -174,8 +177,9 @@ public class SystemRegistry {
     }
 
     private static Star generateMainSequenceStar(final Random random) {
-        return new Star(mainSequenceSpectralClassChooser.choose(random), random.nextInt(10),
-                Luminosity.V);
+        final SpectralClass spectralClass = mainSequenceSpectralClassChooser.choose(random);
+        return new Star(spectralClass, random.nextInt(10), Luminosity.V,
+                generateMainSequencePlanets(spectralClass, random));
     }
 
     private static Star generateGiantStar(final Random random) {
@@ -184,12 +188,24 @@ public class SystemRegistry {
     }
 
     private static Star generateRedDwarf(final Random random) {
-        return new Star(redDwarfSpectralClassChooser.choose(random), random.nextInt(10),
-                Luminosity.VI);
+        final SpectralClass spectralClass = redDwarfSpectralClassChooser.choose(random);
+        return new Star(spectralClass, random.nextInt(10), Luminosity.VI,
+                generateRedDwarfPlanets(random));
     }
 
-    public static Star generateWhiteDwarf(final Random random) {
+    private static Star generateWhiteDwarf(final Random random) {
         return new Star(whiteDwarfSpectralClassChooser.choose(random), random.nextInt(10),
                 Luminosity.VII);
+    }
+
+    private static List<Planet> generateMainSequencePlanets(final SpectralClass spectralClass,
+            final Random random) {
+        final List<Planet> planets = new ArrayList<>();
+        return planets;
+    }
+
+    private static List<Planet> generateRedDwarfPlanets(final Random random) {
+        final List<Planet> planets = new ArrayList<>();
+        return planets;
     }
 }

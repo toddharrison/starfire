@@ -5,7 +5,7 @@ import com.gfe.starfire.model.Race;
 
 public class Population {
     public Race race;
-    public int size;
+    public long size;
     public Empire empire;
     public PopulationLocation location;
 }

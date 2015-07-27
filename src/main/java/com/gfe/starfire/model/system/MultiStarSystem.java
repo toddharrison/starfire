@@ -12,6 +12,9 @@ public class MultiStarSystem extends StarSystem {
     public MultiStarSystem(final Star star, final Star... companions) {
         super(star);
         companionStars = Arrays.asList(companions);
+        for (final Star companion : companionStars) {
+            companion.system = this;
+        }
     }
 
     @Override
