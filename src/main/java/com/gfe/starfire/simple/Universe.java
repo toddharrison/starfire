@@ -1,19 +1,20 @@
 package com.gfe.starfire.simple;
 
 import com.gfe.util.Graph;
+import com.gfe.util.SingleEdgeGraph;
 
 public class Universe {
     public static final void main(final String[] args) {
         final Race race = new Race("Human");
 
-        final Population pop = race.createPopulation(10_000_000);
+        final Population pop = race.createPopulation(1_000_000_000);
         System.out.println(pop.industry().produce());
     }
 
     private final Graph<StarSystem> systems;
 
     public Universe() {
-        systems = new Graph<>();
+        systems = new SingleEdgeGraph<>();
     }
 }
 

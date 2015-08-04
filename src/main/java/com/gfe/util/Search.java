@@ -13,10 +13,8 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Set;
 import java.util.function.Function;
-import java.util.function.ToIntFunction;
 
-// http://www.redblobgames.com/pathfinding/a-star/introduction.html
-public final class Search {
+public class Search {
     public static <T> Iterator<T> breadthFirstIterator(final T startingVertex,
             final Function<T, Collection<T>> getNeighbors) {
         final Set<T> visited = new HashSet<>();
@@ -105,13 +103,13 @@ public final class Search {
         queue.add(startingVertex);
         cameFrom.put(startingVertex, null);
 
-        boolean pathFound = false;
+        boolean foundEnd = false;
+
         while (!queue.isEmpty()) {
             final T next = queue.remove();
 
-            // Shortcut search when end found
             if (next == endingVertex) {
-                pathFound = true;
+                foundEnd = true;
                 break;
             }
 
@@ -124,10 +122,10 @@ public final class Search {
         }
 
         Deque<T> path = null;
-        if (pathFound) {
+        if (foundEnd) {
             // Follow back the path
             T current = endingVertex;
-            path = new ArrayDeque<>();
+            path = new ArrayDeque<T>();
             path.add(current);
             while (current != startingVertex) {
                 current = cameFrom.get(current);
@@ -138,21 +136,23 @@ public final class Search {
         return path;
     }
 
+    // http://www.redblobgames.com/pathfinding/a-star/introduction.html
     public static <T> Collection<T> weightedBreadthFirstSearch(final T start, final T goal,
-            final Function<T, Collection<T>> getNeighbors, final ToIntFunction<T> getCost) {
-        final PriorityQueue<WeightedNode<T, Integer>> frontier = new PriorityQueue<>(
+            final Function<T, Collection<T>> getNeighbors) {
+        final PriorityQueue<WeightedNode<T>> frontier = new PriorityQueue<>(
                 (o1, o2) -> Integer.compare(o1.weight, o2.weight));
-        final Map<WeightedNode<T, Integer>, WeightedNode<T, Integer>> cameFrom = new HashMap<>();
+        final Map<WeightedNode<T>, WeightedNode<T>> cameFrom = new HashMap<>();
 
-        final WeightedNode<T, Integer> startNode = new WeightedNode<>(start, 0);
+        final WeightedNode<T> startNode = new WeightedNode<T>(start, 0);
         frontier.add(startNode);
         cameFrom.put(startNode, null);
-        final Map<WeightedNode<T, Integer>, Integer> costSoFar = new HashMap<>();
+        final Map<WeightedNode<T>, Integer> costSoFar = new HashMap<>();
         costSoFar.put(startNode, 0);
 
-        WeightedNode<T, Integer> endNode = null;
+        WeightedNode<T> endNode = null;
+
         while (!frontier.isEmpty()) {
-            final WeightedNode<T, Integer> current = frontier.remove();
+            final WeightedNode<T> current = frontier.remove();
 
             if (current.vertex == goal) {
                 endNode = current;
@@ -160,9 +160,9 @@ public final class Search {
             }
 
             for (final T next : getNeighbors.apply(current.vertex)) {
-                final int newCost = costSoFar.get(current) + getCost.applyAsInt(next);
+                final int newCost = costSoFar.get(current) + 1; // TODO Get cost from path
                 if (!costSoFar.containsKey(next) || newCost < costSoFar.get(next)) {
-                    final WeightedNode<T, Integer> node = new WeightedNode<>(next, newCost);
+                    final WeightedNode<T> node = new WeightedNode<>(next, newCost);
                     costSoFar.put(node, newCost);
                     frontier.add(node);
                     cameFrom.put(node, current);
@@ -173,7 +173,7 @@ public final class Search {
         Deque<T> path = null;
         if (endNode != null) {
             // Follow back the path
-            WeightedNode<T, Integer> current = endNode;
+            WeightedNode<T> current = endNode;
             path = new ArrayDeque<>();
             path.add(current.vertex);
             while (current != startNode) {
@@ -185,11 +185,11 @@ public final class Search {
         return path;
     }
 
-    private static class WeightedNode<T, U> {
-        private final T vertex;
-        private final U weight;
+    private static class WeightedNode<T> {
+        public T vertex;
+        public int weight;
 
-        public WeightedNode(final T vertex, final U weight) {
+        public WeightedNode(final T vertex, final int weight) {
             this.vertex = vertex;
             this.weight = weight;
         }

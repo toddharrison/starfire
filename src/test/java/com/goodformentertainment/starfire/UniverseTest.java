@@ -2,7 +2,7 @@ package com.goodformentertainment.starfire;
 
 import org.junit.Test;
 
-import com.gfe.starfire.model.Universe;
+import com.gfe.starfire.simple.Universe;
 
 public class UniverseTest {
     @Test
